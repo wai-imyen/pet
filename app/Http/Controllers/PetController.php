@@ -120,6 +120,9 @@ class PetController extends Controller
      */
     public function update(Request $request, Pet $pet)
     {
+        // check user permission
+        $this->authorize('update', $pet);
+
         // validate
         $validaion = $request->validate([
             'name' => 'required|max:32',
@@ -143,7 +146,9 @@ class PetController extends Controller
      */
     public function destroy(Pet $pet)
     {
-        
+        // check user permission
+        $this->authorize('delete', $pet);
+
         $pet->delete();
 
         return $this->out(Response::HTTP_OK, null, '刪除成功！');
