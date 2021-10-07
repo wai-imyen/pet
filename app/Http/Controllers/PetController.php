@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\Rule;
 
@@ -69,6 +70,10 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Set user_id
+        $user = Auth::user();
+        $request->request->add(['user_id' => $user->id]);
 
         // validate
         $validaion = $request->validate([

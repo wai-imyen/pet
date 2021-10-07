@@ -15,6 +15,7 @@ class Pet extends Model
         'area',
         'fix',
         'description',
-        'age'
+        'age',
+        'user_id',
     ];
 }
