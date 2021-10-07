@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
@@ -41,7 +42,11 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (NotFoundHttpException $e, $request) {
-            return response()->json(['status' => Response::HTTP_BAD_REQUEST, 'message' => '找不到資源！']);
+            return response()->json(['status' => Response::HTTP_BAD_REQUEST, 'message' => 'not found']);
+        });
+
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            return response()->json(['status' => Response::HTTP_BAD_REQUEST, 'message' => 'illegal method called']);
         });
     }
 }
