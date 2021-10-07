@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('pet', 'PetController');
+Route::post('pet/{pet}/wishlist', 'PetController@wishlist');
 
 Route::group([
     'prefix' => 'user', 
@@ -31,3 +32,5 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'me']); 
 });
+
+

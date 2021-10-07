@@ -10,7 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-
 class User extends Authenticatable implements JWTSubject 
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -53,5 +52,21 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * 取得刊登的動物
+     */
+    public function pet()
+    {
+        return $this->hasMany('App\Models\Pet', 'user_id', 'id');
+    }
+    
+    /**
+     * 取得收藏
+     */
+    public function wishlist()
+    {
+        return $this->belongsToMany('App\Models\Pet', 'wishlist')->withTimestamps();
     }
 }

@@ -72,8 +72,7 @@ class PetController extends Controller
     {
 
         // Set user_id
-        $user = Auth::user();
-        $request->request->add(['user_id' => $user->id]);
+        $request->request->add(['user_id' => Auth::user()->id]);
 
         // validate
         $validaion = $request->validate([
@@ -153,5 +152,15 @@ class PetController extends Controller
 
         return $this->out(Response::HTTP_OK, null, '刪除成功！');
         
+    }
+
+    /**
+     * 加入或刪除收藏
+     */
+    public function wishlist(Pet $pet)
+    {
+        $pet->wishlist()->toggle(Auth::user()->id);
+
+        return $this->out(Response::HTTP_OK);
     }
 }
